@@ -2,7 +2,7 @@
 name: deals-hunter
 description: "Use when 薅羊毛. Searches Taobao/JD coupons via DuckDuckGo."
 version: 2.0.0
-author: D ark
+author: dark-hxx
 license: MIT
 metadata:
   hermes:
@@ -236,7 +236,7 @@ curl -sL "https://duckduckgo.com/html/?q=京东+红包口令+2026年8月&hl=zh-C
 
 ## 发布说明
 
-本技能由 D ark 创建，免费分享使用。
+本技能由 dark-hxx 创建，免费分享使用。
 - 发布到 GitHub 时，建议保留作者信息
 - 口令数据库需要定期更新
 - 欢迎 PR 完善搜索策略
