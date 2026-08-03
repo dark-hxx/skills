@@ -50,6 +50,19 @@ platforms: [linux, macos, windows]
 - "XX在说什么，谁来解释一下"
 - "XX是什么梗，为什么大家都在说"
 
+**问当前热梗（不需要具体关键词）：**
+- "最近有什么热梗"
+- "最近有什么梗"
+- "最近有啥梗"
+- "最近网上在流行什么"
+- "最近大家都在玩什么梗"
+- "最近有什么好玩的梗"
+- "最近有什么网络热词"
+- "最近什么梗比较火"
+- "最近网上有什么新梗"
+- "有什么新梗"
+- "最近流行什么"
+
 **变体模式：** 用户可能说"竹知了"、"竹知了是什么"、"竹知了什么梗"、"竹知了为什么火了"等，需要能识别出核心关键词（竹知了）并自动匹配到梗查询模式。
 
 ---
@@ -72,31 +85,24 @@ platforms: [linux, macos, windows]
 
 ## 搜索引擎策略
 
-### 首选：搜狗搜索
-搜狗对中文内容支持最好，反爬较轻。
+搜索引擎（搜狗/Bing/DuckDuckGo）反爬严重，优先使用**直接抓取热榜页面**的方式。
 
-```bash
-curl -sL "https://www.sogou.com/web?query=关键词+梗" \
-  -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
-```
+### 直接热榜数据源（优先）
 
-### 备选：Bing
-如果搜狗没结果，换 Bing。
+当用户问"最近有什么热梗"时，直接抓取以下热榜页面，从中提取当前热门话题：
 
-```bash
-curl -sL "https://www.bing.com/search?q=关键词+梗&setlang=zh-Hans" \
-  -H "User-Agent: Mozilla/5.0"
-```
+| 平台 | 热榜地址 | 获取方式 |
+|------|----------|----------|
+| **微博热搜** | `https://weibo.com/ajax/side/hotSearch` | 需带 Cookie，JSON 格式 |
+| **百度热搜** | `https://top.baidu.com/board?tab=realtime` | 浏览器抓取 HTML |
+| **知乎热榜** | `https://www.zhihu.com/hot` | 浏览器抓取 HTML |
+| **B站热门** | `https://www.bilibili.com/v/popular/rank/all` | 浏览器抓取 HTML |
+| **今日头条** | `https://www.toutiao.com/trending/` | 浏览器抓取 HTML |
+| **豆瓣** | `https://www.douban.com/group/explore` | 浏览器抓取 HTML |
 
-### 备选：DuckDuckGo
-如果前两个都不行，最后尝试 DuckDuckGo。
+### 搜索引擎（备选）
 
-```bash
-curl -sL "https://duckduckgo.com/html/?q=关键词+梗&hl=zh-CN" \
-  -H "User-Agent: Mozilla/5.0"
-```
-
-### 搜索关键词模板
+当搜具体梗时使用搜索引擎，搜狗 → Bing → DuckDuckGo 多引擎轮询。
 
 ```
 "{关键词}" + 梗
